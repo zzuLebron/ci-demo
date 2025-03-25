@@ -1,0 +1,23 @@
+name: Java CI with Maven
+on: # 触发条件
+  push: # 代码推送时触发
+    branches: [ "main" ] # 仅在main分支生效
+  pull_request: # 或当有PR时触发
+    branches: [ "main" ]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest # 使用GitHub提供的Ubuntu虚拟机
+
+    steps:
+    - name: Checkout code # 步骤1：拉取代码
+      uses: actions/checkout@v4
+
+    - name: Set up JDK 17 # 步骤2：配置Java环境
+      uses: actions/setup-java@v4
+      with:
+        java-version: '17'
+        distribution: 'temurin'
+
+    - name: Build and Test with Maven # 步骤3：编译并运行测试
+      run: mvn -B test # -B表示批处理模式（非交互式）
